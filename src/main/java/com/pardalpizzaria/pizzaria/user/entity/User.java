@@ -3,6 +3,7 @@ package com.pardalpizzaria.pizzaria.user.entity;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pardalpizzaria.pizzaria.auth.dtos.request.RegisterUserDto;
 import com.pardalpizzaria.pizzaria.user.enums.Role;
 
 import jakarta.persistence.Column;
@@ -59,6 +60,13 @@ public class User {
     @JsonIgnore
     private String address;
 
+    @Column(name = "phone_number", nullable = false)
+    @Pattern(regexp = "^\\+?[0-9]{10,15}$",
+             message = "Phone number must be between 10 and 15 digits long and can optionally start with a '+' sign")
+    @Size(max=15, message = "Phone number must be at most 15 characters long")
+    @JsonIgnore
+    private String phoneNumber;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -99,11 +107,13 @@ public class User {
         return this.isEnabled;
     }
 
-    public User(String name, String username, String email, String password, Role role) {
-        this.name = name;
-        this.username = username;
-        this.email = email;
+    public User(RegisterUserDto register, String password, Role role) {
+        this.name = register.name();
+        this.username = register.username();
+        this.email = register.email();
         this.password = password;
+        this.address = register.address();
+        this.phoneNumber = register.phoneNumber();
         this.role = role;
     }
 
