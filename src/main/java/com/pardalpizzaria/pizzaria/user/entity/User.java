@@ -52,6 +52,13 @@ public class User {
              message = "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one digit")
     private String password;
 
+    @Column(nullable = false)
+    @Size(max=100, message = "Address must be at most 100 characters long")
+    @Pattern(regexp = "^[a-zA-Z0-9\\s,.'-]{1,100}$", 
+             message = "Address must be at most 100 characters long and can only contain letters, numbers, spaces, commas, periods, apostrophes, and hyphens")
+    @JsonIgnore
+    private String address;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
