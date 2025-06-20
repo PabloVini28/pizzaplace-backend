@@ -48,6 +48,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @Size(min=3, message = "Password must be at least 3 characters long")
     private String password;
 
     @Column(nullable = false)
