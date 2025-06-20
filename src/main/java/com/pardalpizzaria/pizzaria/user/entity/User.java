@@ -48,9 +48,6 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    @Size(min=6, message = "Password must be at least 6 characters long")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{6,}$", 
-             message = "Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, and one digit")
     private String password;
 
     @Column(nullable = false)
