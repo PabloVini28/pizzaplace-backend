@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pardalpizzaria.pizzaria.auth.dtos.request.LoginDto;
 import com.pardalpizzaria.pizzaria.auth.dtos.request.RegisterUserDto;
+import com.pardalpizzaria.pizzaria.auth.dtos.request.VerifyUserDto;
 import com.pardalpizzaria.pizzaria.auth.dtos.response.LoginResponseDto;
 import com.pardalpizzaria.pizzaria.auth.service.AuthService;
 import com.pardalpizzaria.pizzaria.user.dtos.request.PatchUserEmailDto;
@@ -41,7 +42,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/register/receptionist")
+    @PostMapping("/register/admin")
     public ResponseEntity<?> registerSuperAdmin(@RequestBody @Valid RegisterUserDto data) throws Exception {
 
         authService.createAdminUser(data);
@@ -49,9 +50,9 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<?> verifyUser(@RequestParam String email, @RequestParam String code) {
+    public ResponseEntity<?> verifyUser(@RequestBody VerifyUserDto verifyUserDto) {
         try {
-            authService.verifyUser(email, code);
+            authService.verifyUser(verifyUserDto.email(), verifyUserDto.verificationCode());
             return ResponseEntity.ok("Usuário verificado com sucesso");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
