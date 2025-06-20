@@ -108,9 +108,7 @@ public class AuthService {
         }
         
         User actualUser = user.get();
-        if (actualUser.getVerificationCode() != null) {
-            throw new Exception("Código de verificação já enviado");
-        }
+            
         generateAndSetVerificationCode(actualUser);
         userRepository.save(actualUser);
     }
