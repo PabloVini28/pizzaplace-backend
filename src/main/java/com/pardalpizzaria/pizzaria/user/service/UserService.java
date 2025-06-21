@@ -22,6 +22,12 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserResponseDto getUserById(Long id){
+        return userRepository.findById(id)
+                .map(UserResponseDto::new)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+    }
+
     public UserResponseDto getUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .map(UserResponseDto::new)

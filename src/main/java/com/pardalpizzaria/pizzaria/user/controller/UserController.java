@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pardalpizzaria.pizzaria.user.dtos.response.UserResponseDto;
 import com.pardalpizzaria.pizzaria.user.service.UserService;
 
-
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -39,6 +37,13 @@ public class UserController {
         UserResponseDto user = userService.getUserByEmail(email);
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id){
+        UserResponseDto user = userService.getUserById(id);
+        return ResponseEntity.ok().body(user);
+    }
+    
 
     @DeleteMapping("/{username}")
     public ResponseEntity<Void> deleteUser(@PathVariable String username) {
