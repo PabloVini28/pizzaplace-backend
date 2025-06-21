@@ -26,6 +26,7 @@ public class JWTService {
                 .withSubject(user.getUsername())
                 .withClaim("role", user.getRole().toString())
                 .withExpiresAt(generateExpirationDate())
+                .withClaim("userId", user.getId())
                 .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
