@@ -1,12 +1,16 @@
 package com.pardalpizzaria.pizzaria.email;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import com.pardalpizzaria.pizzaria.user.entity.User;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -114,5 +118,27 @@ public class EmailService {
         "</html>";
         return htmlContent;
     }
+
+    public void sendEmailConfirmation(Optional<User> user) {
+        if (user.isPresent()) {
+            User usuario = user.get();
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(usuario.getEmail());
+            message.setSubject("Seu pedido saiu para entregua!");
+            message.setText(
+                "Olá " + usuario.getName() + ",\n\n" +
+                "Seu pedido saiu para entrega.\n\n" +
+                "🍕 Agradecemos por escolher a Pardal Pizzaria.\n" +
+                "Bom apetite!\n\n" +
+                "Atenciosamente,\nEquipe Pardal Pizzaria"
+            );
+
+            mailSender.send(message);
+        } else {
+            System.out.println("Usuário não encontrado para envio de e-mail.");
+        }
+    }
+
 
 }
