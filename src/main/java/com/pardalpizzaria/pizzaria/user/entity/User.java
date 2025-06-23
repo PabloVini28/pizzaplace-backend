@@ -55,14 +55,12 @@ public class User {
     @Size(max=100, message = "Address must be at most 100 characters long")
     @Pattern(regexp = "^[a-zA-Z0-9\\s,.'-]{1,100}$", 
              message = "Address must be at most 100 characters long and can only contain letters, numbers, spaces, commas, periods, apostrophes, and hyphens")
-    @JsonIgnore
     private String address;
 
     @Column(name = "phone_number", nullable = false)
     @Pattern(regexp = "^\\+?[0-9]{10,15}$",
              message = "Phone number must be between 10 and 15 digits long and can optionally start with a '+' sign")
     @Size(max=15, message = "Phone number must be at most 15 characters long")
-    @JsonIgnore
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
