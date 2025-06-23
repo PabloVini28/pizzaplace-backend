@@ -47,7 +47,7 @@ public class AuthService {
     public LoginResponseDto login(LoginDto data) throws Exception{
         try{
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-            var  auth = this.authenticationManager.authenticate(usernamePassword);
+            var auth = this.authenticationManager.authenticate(usernamePassword);
 
             UserDetailsImp userDetails = (UserDetailsImp) auth.getPrincipal();
             User user = userDetails.getUser();
@@ -76,8 +76,8 @@ public class AuthService {
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User user = new User(data, encryptedPassword, Role.ROLE_USER); 
 
-        generateAndSetVerificationCode(user); 
         userRepository.save(user);
+        generateAndSetVerificationCode(user); 
     }
 
     @Transactional
@@ -92,8 +92,8 @@ public class AuthService {
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User user = new User(data, encryptedPassword, Role.ROLE_ADMIN); 
 
-        generateAndSetVerificationCode(user); 
         userRepository.save(user);
+        generateAndSetVerificationCode(user); 
     }
 
     public void resendVerificationCode(String email) throws Exception {
