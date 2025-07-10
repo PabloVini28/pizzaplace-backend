@@ -7,7 +7,8 @@ public record UserResponseDto(
     String name,
     String username,
     String email,
-    String address
+    String address,
+    String phoneNumber
 ) {
 
     public UserResponseDto(User user) {
@@ -16,7 +17,8 @@ public record UserResponseDto(
             user.getName(),
             user.getUsername(),
             user.getEmail(),
-            user.getAddress()
+            user.getAddress(),
+            user.getPhoneNumber()
         );
     }
     
