@@ -25,50 +25,61 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
-@Table(name = "users")
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true) @Size(max=50, message = "Name must be at most 50 characters long")
+    @Column(nullable = false, unique = true)
+    @Size(max = 50, message = "O nome deve ter no máximo 50 caracteres.")
+    @Pattern(
+        regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s'-]{2,50}$",
+        message = "O nome deve conter apenas letras, espaços, apóstrofos ou hífens."
+    )
     private String name;
 
-    @Column(nullable = false, unique = true) @Size(min=3, max=20, message = "Username must be between 3 and 20 characters long")
-    @Pattern(regexp = "^[a-zA-Z0-9._-]{3,}$", message = "Username must be at least 3 characters long and can only contain letters, numbers, underscores, and hyphens")
+    @Column(nullable = false, unique = true)
+    @Size(min = 3, max = 20, message = "O nome de usuário deve ter entre 3 e 20 caracteres.")
+    @Pattern(
+        regexp = "^[a-zA-Z0-9._-]{3,}$",
+        message = "O nome de usuário pode conter letras, números, pontos, underscores ou hífens."
+    )
     private String username;
 
-    @Email
+    @Email(message = "Formato de email inválido.")
     @Column(nullable = false, unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Invalid email format")
+    @Pattern(
+        regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        message = "Formato de email inválido."
+    )
     private String email;
 
     @Column(nullable = false)
-    @Size(min=3, message = "Password must be at least 3 characters long")
+    @Size(min = 3, message = "A senha deve ter no mínimo 3 caracteres.")
     private String password;
 
     @Column(nullable = false)
-    @Size(max=100, message = "Address must be at most 100 characters long")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s,.'-]{1,100}$", 
-             message = "Address must be at most 100 characters long and can only contain letters, numbers, spaces, commas, periods, apostrophes, and hyphens")
-    @JsonIgnore
+    @Size(max = 100, message = "O endereço deve ter no máximo 100 caracteres.")
     private String address;
 
     @Column(name = "phone_number", nullable = false)
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$",
-             message = "Phone number must be between 10 and 15 digits long and can optionally start with a '+' sign")
-    @Size(max=15, message = "Phone number must be at most 15 characters long")
-    @JsonIgnore
+    @Pattern(
+        regexp = "^\\+?[0-9]{10,15}$",
+        message = "O telefone deve ter entre 10 e 15 dígitos e pode começar com '+'."
+    )
+    @Size(max = 15, message = "O telefone deve ter no máximo 15 caracteres.")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     @JsonIgnore
     private boolean isEnabled = false;
 
@@ -84,24 +95,24 @@ public class User {
     @Column(name = "password_reset_token_expiry")
     private LocalDateTime passwordResetTokenExpiry;
 
-    @Column(name="createdAt", nullable=false,updatable=false)
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name="updatedAt", nullable=false)
+    @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void preUpdate(){
+    public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public boolean isEnable(){
+    public boolean isEnable() {
         return this.isEnabled;
     }
 
@@ -114,5 +125,4 @@ public class User {
         this.phoneNumber = register.phoneNumber();
         this.role = role;
     }
-
 }
