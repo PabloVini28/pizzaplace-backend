@@ -2,20 +2,20 @@
 
 ## About 🗒️
 
-A frontend project for a pizza restaurant system, built using HTML5, CSS3, and JavaScript.
-This interface allows users to browse the menu, select pizzas, and prepare for order processing — either via a backend API or static mock data.
+This project is the backend API for the Pizza Place system, built with Java using the Spring Boot framework and PostgreSQL as the database.
+It provides RESTful endpoints to manage pizzas, orders, and other backend logic, supporting the frontend application by handling data storage, retrieval, and business logic.
 
 ## Features Implemented 📌
 
- - Menu display with pizza images, names, descriptions, and prices
- - Ability to select pizzas and add them to a “cart”
- - Dynamic cart updates (add/remove items)
- - Responsive layout for desktop and mobile
- - Clean and modern styling using CSS
- - JavaScript interactivity for DOM manipulation and event handling
- - Organized folder structure (html, css, js, img)
+ - REST API endpoints for managing pizzas, orders, and customers
+ - CRUD operations for pizza menu items (create, read, update, delete)
+ - Order processing and management, including status tracking
+ - Integration with PostgreSQL for reliable data persistence
+ - Validation and error handling for API requests
+ - Organized project structure following best practices for Spring Boot
+ - Configurable properties for database connection and environment
 
  ## Tools ⚙️
-![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) <br>
-![Java](https://img.shields.io/badge/Java-%23FF5733?style=for-the-badge&logo=openjdk&logoColor=white) <br>
+![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white) 
+![Java](https://img.shields.io/badge/Java-%23FF5733?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
